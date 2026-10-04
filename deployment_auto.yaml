@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-autoscaler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: custom-autoscaler
+  template:
+    metadata:
+      labels:
+        app: custom-autoscaler
+    spec:
+      serviceAccountName: autoscaler-sa
+      containers:
+      - name: autoscaler
+        image: autoscaler:latest
+        imagePullPolicy: IfNotPresent
